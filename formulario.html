@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Montserrat|Montserrat+Alternates&display=swap" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Gerador de Currículos</title>
+	<style type="">
+        *{
+            outline:none;
+            font-family: 'Montserrat', sans-serif;
+        }
+		.seletortemplate{
+            display: none;
+        }
+        .imagemtemplate{
+            height: 300px;
+            width: 210px;
+        }
+        input[type="radio"]{
+            color:red;
+        }
+        body{
+            transition:all 0.3s ease;
+            letter-spacing: 0em !important;
+            display:grid;
+            grid-template-rows: 350px calc(100vh - 250px) 100px;
+            grid-template-columns: 100%;
+            grid-template-areas: 
+            "header header"
+            "main main";
+            background-color: #f7f7f7;
+            
+        }
+        .pure-button{
+            margin:20px 10px;
+            text-align: center;
+        }
+        .menu{
+            display: flex;
+            background-image:url(fundo.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: #666666;
+            grid-area: header;
+            justify-content: right;
+            box-shadow: 0px 1px 5px 2px grey;
+            opacity:0.9
+        }
+
+        .title{
+            margin:auto 200px;
+            font-size: 40pt;
+            color:black  ;
+            font-family: 'Montserrat Alternates', sans-serif;
+            font-weight: bold;
+            text-shadow: -1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5), 3px 3px 0px #767670;
+        }
+        .templatesbox{
+            display:flex;
+            flex-direction:row;
+            justify-content: center;
+            align-items:center;
+            margin-top:20px;
+        }
+        .blocodeacoes{
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .teste{
+            padding: 15px;
+            text-align: center;
+            font-size:19pt
+        }
+        .template{
+            margin: 15px;
+            cursor: pointer;
+        }
+        .informacoes{
+            letter-spacing: 0em;
+            display: none;
+        }
+        .pure-u-23-24{
+            margin-right:0px;
+        }
+        .rodapracima{
+            transition:all 0.5s ease;
+            -webkit-transform: rotateZ(-180deg);
+            -ms-transform: rotateZ(-180deg);
+            transform: rotateZ(-180deg);
+        }
+        .rodaprabaixo{
+            transition:all 0.5s ease;
+            -webkit-transform: rotateZ(0deg);
+            -ms-transform: rotateZ(0deg);
+            transform: rotateZ(0deg);
+        }
+        #teste1{
+            display: inline-block;
+        }
+        #formacaobox{
+            display: none;
+        }
+        #experienciaboxexternamesmo{
+            display: none;
+        }
+        #textareabox{
+            display: none;
+        }
+        #aperfeicoamentobox{
+            display:none;
+        }
+        #referenciasbox{
+            display:none;
+        }
+        #historicobox{
+            display: none;
+        }
+        #educacaobox{
+            display: none;
+        }
+        #resumoprofissional{
+            display: none;
+        }
+        #qualificacoesbox{
+            display:none;
+        }
+        #imagemaserenviada{
+            display: none;
+        }
+        .aperfeicoamentocontainer{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            flex-flow: row wrap;
+        }
+        #referenciascontainer{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            flex-flow: row wrap;
+        }
+        .inlineblock{
+            display: inline-block;
+            cursor: pointer;
+        }
+        .template{
+            opacity: 0.8;
+        }
+        .template:hover{
+            opacity: 1;
+        }
+        .imgselecionada{
+            opacity: 1;
+            transition: all 0.3s ease;
+            -webkit-transform: scale(1.15);
+            -ms-transform: scale(1.15);
+            transform:scale(1.15);
+            z-index:99;
+        }
+        #formulariogeral{
+            display: none;
+        }
+        .o3{
+            margin:30px auto;
+            padding-top:30px;
+            font-size: 18pt;
+            border-top:solid 1px rgb(187, 190, 196);
+            text-align: center
+        }
+        .o3:hover{
+            font-size:19pt;
+            transition:0.2s
+        }
+        .aaa{
+            margin-bottom: 15px
+        }
+        #envio{
+            display: inline-block;
+        }
+        .aaaaaaa{
+            display: flex;
+            justify-content: center;
+        }
+
+	</style>
+</head>
+<body>
+
+    <div class="menu" class="infos"><span class='title'>Gerador <br>de<br> Currículos <img ></span></div>
+    <div class="main">
+    <div class='teste'><div>Escolha seu template</div>
+    <div class='templatesbox'>
+        <label for="template1" class='template'>
+            <img src="curriculo1.svg" alt="" id="imagem1" class="imagemtemplate">
+            <input type="radio" onchange="templateescolhido()" class="seletortemplate" id="template1" value="template1" name="template"/>
+        </label>
+        <label for="template2" class='template'>
+            <img src="curriculo2.svg" alt="" id="imagem2" class="imagemtemplate">
+            <input type="radio"  onchange="templateescolhido()" class="seletortemplate" id="template2" value="template2" name="template"/>
+        </label>
+        <label for="template3" class='template'>
+            <img src="curriculo3.svg" alt="" id="imagem3" class="imagemtemplate">
+            <input type="radio"   onchange="templateescolhido()" class="seletortemplate" id="template3" value="template3" name="template" />
+        </label>
+    </div></div>
+    <form action="#" method="post" class='pure-form pure-form-stacked' id="formulariogeral"  enctype="multipart/form-data"><br><br>
+        <div class="o3" style="margin-top:10px;border-top:none"> Dados pessoais <span class='inlineblock' id='teste1'><img class="setinea" src="https://img.icons8.com/material/24/000000/expand-arrow--v1.png"></span></div>
+        <div class="informacoes" id='informacoes'>
+        <div class='blocodeacoes pure-g' id='dadospessoais'>
+        <div class="pure-u-1 pure-u-md-1-3">
+                <label for="nomecompleto">Nome completo</label>
+                <input id="nomecompleto" class="pure-u-24-24" type="text" name="nomecompleto">
+        </div>
+        <div class="pure-u-1-2 pure-u-md-1-3">
+                <label for="nacionalidade">Nacionalidade</label>
+                <input id="nacionalidade" class="pure-u-24-24" type="text" name="nacionalidade">
+        </div>
+        <div class="pure-u-1-4 pure-u-md-1-3">
+                <label for="estadocivil">Estado civil</label>
+                <input id="estadocivil" class="pure-u-24-24" type="text" name="estadocivil">
+        </div>
+        <div class="pure-u-1-5 pure-u-md-1-3">
+                <label for="idade">Idade</label>
+                <input id="idade" class="pure-u-24-24" type="text" name="idade">
+        </div>
+        
+        <div class="pure-u-1 pure-u-md-1-3">
+                <label for="endereco">Endereço</label>
+                <input id="endereco" class="pure-u-24-24" type="text" name="endereco">
+        </div>
+        <div class="pure-u-1-4 pure-u-md-1-3">
+                <label for="estado">Estado</label>
+                <input id="estado" class="pure-u-24-24" type="text" name="estado">
+        </div>
+        <div class="pure-u-1-3 pure-u-md-1-3">
+                <label for="cidade7">Cidade</label>
+                <input id="cidade7" class="pure-u-24-24" type="text" name="cidade">
+        </div>
+        <div class="pure-u-1-3 pure-u-md-1-3">
+                <label for="bairro">Bairro</label>
+                <input id="bairro" class="pure-u-24-24" type="text" name="bairro">
+        </div>
+
+
+
+
+        <div class="pure-u-1-3 pure-u-md-1-3">
+                <label for="telefone">Telefone</label>
+                <input id="telefone" class="telefone pure-u-24-24" type="text" name="telefone" placeholder="Ex.: (54) 99999-9999">
+        </div>
+        <div class="pure-u-1-2 pure-u-md-1-3">
+                <label for="email">E-Mail</label>
+                <input id="email" class="pure-u-24-24" type="email" name="email">
+        </div>
+        </div>
+        </div>
+        <div class="o3 template1"> Formação<span class='inlineblock' id='teste2'><img class="setinea" src="https://img.icons8.com/material/24/000000/expand-arrow--v1.png"></span></div>
+        <div id='formacaobox'>
+            <div class='blocodeacoes pure-g' id='divexterna'>    
+                <div class="pure-u-1-2 pure-u-md-1-3">
+                        <label for="formacao">Formação</label>
+                        <input id="formacao" class="pure-u-24-24 inputtemplate1" type="text"name="formacaoacademica[]">
+                </div>
+                <div class="pure-u-1-3 pure-u-md-1-3">
+                        <label for="anodeformacao">Ano de formação</label>
+                        <input id="anodeformacao" class="pure-u-24-24 inputtemplate1" type="text"name="anodeformacao[]">
+                </div>
+                
+            </div>
+            <button class="pure-button" id="formacaobotao">Adicionar formação</button>
+            <button class="pure-button" id="removerformacaobotao">Remover formação</button>
+        </div>
+        <div class="o3 template2"> Educação <span id='teste8' class='inlineblock' ><img class="setinea" src="https://img.icons8.com/material/24/000000/expand-arrow--v1.png"></span></div>
+        <div class="containereducacao">
+            <div id='educacaobox'>
+                <div class="blocodeacoes pure-g" id="educacaocontainer">
+                        <div class="pure-u-1-2 pure-u-md-1-3">
+                                <label for="anodeingresso">Nome da formação</label>
+                                <input id="anodeingresso" class="pure-u-24-24 inputtemplate2" type="text" name="nomedaformacao[]">
+                        </div>
+                        <div class="pure-u-1-3 pure-u-md-1-3">
+                            <label for="principaisatribuicoes">Instituição</label>
+                            <input id="principaisatribuicoes" class="pure-u-24-24 inputtemplate2" type="text" name="instituicaodaformacao[]">
+                        </div>
+                </div>
+                <button class="pure-button" id='botaoeducacao'>Adicionar Educação</button>
+                <button class="pure-button" id='botaoremovereducacao'>Remover Educação</button>
+            </div>
+        </div>
+        <div class="o3 template1"> Experiência profissional <span class='inlineblock' id='teste3'><img class="setinea" src="https://img.icons8.com/material/24/000000/expand-arrow--v1.png"></span></div>
+        <div id='experienciaboxexternamesmo'>
+        <div id="experienciabox">
+            <div class='blocodeacoes pure-g' id='containerexperiencia1'>    
+                <div class="pure-u-1-3 pure-u-md-1-3">
+                        <label for="nomedoestabelecimento">Nome do estabelecimento</label>
+                        <input id="nomedoestabelecimento" class="pure-u-24-24 inputtemplate1" type="text" name="nomedoestabelecimento[]">
+                </div>
+                <div class="pure-u-1-8 pure-u-md-1-3">
+                        <label for="anodeingresso4">Ano de ingresso</label>
+                        <input id="anodeingresso4" class="pure-u-24-24 inputtemplate1" type="text" name="anodeingresso[]">
+                </div>
+                <div class="pure-u-1-8 pure-u-md-1-3">
+                    <label for="anodesaida4">Ano de saída</label>
+                    <input id="anodesaida4" class="pure-u-24-24 inputtemplate1" type="text" name="anodesaida[]">
+                </div>
+                <div class="pure-u-1-3 pure-u-md-1-3">
+                    <label for="cargo">Cargo</label>
+                    <input id="cargo" class="pure-u-24-24 inputtemplate1" type="text" name="cargo[]">
+                </div>
+                <div class="pure-u-1-3 pure-u-md-1-3" id='atribuicoes'>
+                    <label for="principaisatribuicoes4">Principais atribuições</label>
+                    <input id="principaisatribuicoes4" class="pure-u-24-24 inputtemplate1" type="text" name="principaisatribuicoes1[]">
+                </div>
+                
+                
+                </div>
+                <button class='botaodaatribuicao pure-button' id='botaodaatribuicao1'>Adicionar outra atribuição</button> 
+                <button class='botaodaatribuicao pure-button' id='botaoremovedordaatribuicao1'>Remover atribuição</button>
+            </div>
+            <button class="pure-button" id="experienciabotao">Adicionar outro estabelecimento</button>
+            <button class="pure-button" id="removerexperienciabotao">Remover estabelecimento</button>
+        </div>
+        <div class="o3 template2" >Histórico profissional <span class='inlineblock' id='teste7'><img class="setinea" src="https://img.icons8.com/material/24/000000/expand-arrow--v1.png"></span></div>
+        <div class="containerhistorico">
+            <div id="historicobox">
+                <div class='' id='containerhistorico1'> 
+                    <div class="blocodeacoes pure-g" id='paraobotaofuncionardireito'>   
+                        <div class="pure-u-1-3 pure-u-md-1-3">
+                                <label for="nomedoestabelecimentoo">Nome do estabelecimento</label>
+                                <input id="nomedoestabelecimentoo" class="pure-u-24-24 inputtemplate2" type="text" name="nomedaempresa[]">
+                        </div>
+                        <div class="pure-u-1-5 pure-u-md-1-3">
+                            <label for="cidadee">Cidade</label>
+                            <input id="cidadee" class="pure-u-24-24 inputtemplate2" type="text" name="cidadedaempresa[]">
+                        </div>
+                        <div class="pure-u-1-5 pure-u-md-1-3">
+                            <label for="cargoo">Cargo</label>
+                            <input id="cargoo" class="pure-u-24-24 inputtemplate2" type="text" name="cargonaempresa[]">
+                        </div>
+                        <div class="pure-u-1-8 pure-u-md-1-3">
+                                <label for="anodeingressoo">Mês/Ano de ingresso</label>
+                                <input id="anodeingressoo" placeholder="mm/aaaa"class="pure-u-24-24 inputtemplate2" type="text" name="anodeingressonaempresa[]">
+                        </div>
+                        <div class="pure-u-1-3 pure-u-md-1-3" id='feitos1'>
+                            <label for="principaisatribuicoess">Funções desempanhadas dentro da empresa</label>
+                            <input id="principaisatribuicoess" class="pure-u-24-24 inputtemplate2" type="text" name="feitosdapessoa[]">
+                        </div>
+                    </div>
+                    <button class='botaodofeito pure-button' id='botaodofeito1'>Adicionar outra função </button>
+                    <button class='pure-button' id='botaoremovedordofeito'>Remover função </button>  
+                    </div>
+                    
+                </div>
+                <!-- <button id='historicobotao'>Adicionar outro estabelecimento</button> -->
+        </div>
+        <div class="o3 template1">Objetivo<span id='teste4' class='inlineblock'><img class="setinea" src="https://img.icons8.com/material/24/000000/expand-arrow--v1.png"></span></div>
+        <div id='textareabox'>
+            <fieldset class="pure-group">
+                <textarea class="pure-input-1 inputtemplate1" id='objetivodentrodaempresa' name='objetivo' placeholder="Fale um pouco sobre os seus objetivos dentro da empresa e como pessoa..."></textarea>
+            </fieldset>
+        </div>
+        <div class="o3 template2"> Resumo profissional <span id='teste9' class='inlineblock'><img class="setinea" src="https://img.icons8.com/material/24/000000/expand-arrow--v1.png"></span></div>
+        <div class="blocodeacoes pure-g" id="resumoprofissional">
+            <textarea class="pure-input-1 inputtemplate2" id='resumoprofissional6' name="resumoprofissional"></textarea>
+        </div>
+        <div class="o3 template1">Aperfeiçoamentos pessoais <span class='inlineblock' id='teste5'><img class="setinea" src="https://img.icons8.com/material/24/000000/expand-arrow--v1.png"></span></div>
+        <div id='aperfeicoamentobox'>
+            <div class='aperfeicoamentocontainer' id='aperfeicoamentocontainer'>    
+                <div class="pure-u-1 pure-u-md-1-3">
+                        <label for="nomedocurso">Nome do aperfeiçoamento</label>
+                        <input id="nomedocurso" class="pure-u-24-24 inputtemplate1" type="text" name="nomedocurso[]">
+                </div>
+                <div class="pure-u-1-3 pure-u-md-1-3">
+                        <label for="localdocurso">Local</label>
+                        <input id="localdocurso" class="pure-u-24-24 inputtemplate1" type="text" name="localondeaprendeu[]">
+                </div>
+                <div class="pure-u-1-5 pure-u-md-1-3">
+                        <label for="quandoentrou">Ano de ingresso</label>
+                        <input id="quandoentrou" class="pure-u-24-24 inputtemplate1" type="text" name="quandoentrou[]">
+                </div>
+                <div class="pure-u-1-5 pure-u-md-1-3">
+                        <label for="quandosaiu">Ano de saída</label>
+                        <input id="quandosaiu" class="pure-u-24-24 inputtemplate1" type="text" name="quandosaiu[]">
+                </div>
+            </div>
+            <button class="pure-button" id="aperfeicoamentobotao">Adicionar aperfeiçoamento</button>
+            <button class="pure-button" id="removeraperfeicoamentobotao">Remover aperfeiçoamento</button>
+
+        </div>
+        <div class="template2 o3">Qualificações profissionais <span class='inlineblock' id='teste10'><img class="setinea" src="https://img.icons8.com/material/24/000000/expand-arrow--v1.png"></span></div>
+        <div id='qualificacoesbox'>
+                <div class="blocodeacoes pure-g">
+                    <div class="pure-u-1 pure-u-md-1-3" id="qualificacoescontainer">
+                        <input class="pure-u-24-24 inputtemplate2" id='qualificacoesprofissionais1'type="text" name="qualificacoesprofissionais[]">
+                    </div>
+                </div>
+                <button class="pure-button" id='qualificacaobotao'>Adicionar qualificação</button>
+                <button class="pure-button" id='removerqualificacaobotao'>Remover qualificação</button>
+        </div>
+        <div class="o3 template1"> Referências <span class='inlineblock' id='teste6'><img class="setinea" src="https://img.icons8.com/material/24/000000/expand-arrow--v1.png"></span></div>
+        <div id='referenciasbox'>
+            <div id='referenciascontainer'>
+                    <div class="pure-u-1-3 pure-u-md-1-3">
+                            <label for="nomedoreferente">Nome</label>
+                            <input id="nomedoreferente" class="pure-u-24-24 inputtemplate1" type="text" name="nomedoreferente[]">
+                    </div>
+                    <div class="pure-u-1-5 pure-u-md-1-3">
+                            <label for="relacaocomreferente">Relação</label>
+                            <input id="relacaocomreferente" class="pure-u-24-24 inputtemplate1" type="text" name="quemeoreferente[]">
+                    </div>
+                    <div class="pure-u-1-5 pure-u-md-1-3">
+                            <label for="telefonedoreferente">Telefone</label>
+                            <input id="telefonedoreferente" class="pure-u-24-24 telefone inputtemplate1" type="text" name="telefonedoreferente[]">
+                    </div>
+            </div>
+            <button class="pure-button" id='referenciabotao'>Adicionar referência</button>
+            <button class="pure-button" id='removerreferenciabotao'>Remover referência</button>
+
+        </div>
+        
+
+
+        
+        <div class="o3 aaa template1"> Imagem <span class='inlineblock' id='teste11'><img class="setinea" src="https://img.icons8.com/material/24/000000/expand-arrow--v1.png"></span></div>
+        <div id="imagemaserenviada">
+            <!-- <input class='' id='fotodapessoa' type="file" name="fotodapessoa"/> -->
+        </div>
+        <div id='aaaaaaa'><input type="submit" id='envio' value="ENVIAR" class="pure-button pure-button-primary"></div>
+    </form>
+    </div>
+    <script type="">
+        $('.title').removeClass('menu')
+
+
+        $('#dadospessoais').children().last().children().last().blur(function(){
+            if(nometemplatefinal==='template3.php' || nometemplatefinal==='template2.php'){
+                giradinha(8)
+            }else{
+                giradinha(2)
+            }    
+        })
+        $('#divexterna').children().last().children().last().blur(function(){
+            giradinha(3)
+        })
+        $('#experienciabox').children().first().children().last().children().last().blur(function(){
+            giradinha(4)
+        })
+        $('#textareabox').children().children().blur(function(){
+            giradinha(5)
+        })
+        $('#aperfeicoamentobox').children().first().children().last().children().last().blur(function(){
+            giradinha(6)
+        })
+        $('#referenciasbox').children().first().children().last().children().last().blur(function(){
+            giradinha(11)
+        })
+        $('#educacaobox').children().first().children().last().children().last().blur(function(){
+            giradinha(7)
+        })
+        $('#containerhistorico1').children().first().children().last().children().last().blur(function(){
+            giradinha(9)
+        })
+        $('#resumoprofissional6').blur(function(){
+            giradinha(10)
+        })
+        // $('#qualificacoesbox').children().first().children().last().children().last().blur(function(){
+        //     $('#envio').css('font-weight', 'bold')
+        //     setTimeout($('#envio').css('font-weight', '100'),1000)
+
+        // })
+
+        var arrayIds1 = [];
+        var arrayIds2 = [];
+        function preencheformulario(id){
+            $('#'+ id).val('-1')
+        }
+        function esvaziaformulario(id){
+            $('#'+ id).val("")
+        }
+
+        var idtemplatefinal;
+        function templateescolhido(){
+            var templates = document.getElementsByName('template')
+            for (var i = 0; i < templates.length; i++) {
+                if (templates[i].checked){
+                    nometemplatefinal = "template" + (i + 1) + ".php"
+                    $('#formulariogeral').attr('action', nometemplatefinal)
+                    $('#formularioimagem').attr('action', nometemplatefinal)
+                    $('.imagemtemplate').removeClass('imgselecionada')
+                    let idescolhido = "#imagem" + (i + 1);
+                    $(idescolhido).addClass('imgselecionada')
+                }
+            }
+            $(document).find('.inputtemplate1').each(function(){
+            var id = $(this).attr("id")
+            arrayIds1.push(id) 
+            })
+            $(document).find('.inputtemplate2').each(function(){
+            var id = $(this).attr("id")
+            arrayIds2.push(id) 
+            })
+            if (nometemplatefinal === "template2.php" || nometemplatefinal === "template3.php"){
+                $('.template1').css('display', 'none')
+                $('.template2').css('display', 'block')
+                for(var i=0; i < arrayIds1.length;i++){
+                    preencheformulario(arrayIds1[i])
+                }
+                for(var i=0; i < arrayIds2.length;i++){
+                    esvaziaformulario(arrayIds2[i])
+                }
+                $('#fotodapessoa').remove()
+            }else{
+                $('.template1').css('display', 'block')
+                $('.template2').css('display', 'none')
+                for(var i=0; i < arrayIds2.length;i++){
+                    preencheformulario(arrayIds2[i])
+                }
+                for(var i=0; i < arrayIds1.length;i++){
+                    esvaziaformulario(arrayIds1[i])
+                }
+                $('#imagemaserenviada').append("<input class='' type='file' name='fotodapessoa' id='fotodapessoa'/>")
+            }
+            for (let i = 0; i < contadoresdassetinhas.length; i++) {
+                if(contadoresdassetinhas[i]%2 !== 0){
+                    giradinha(i)
+                }        
+            }
+            $('#formulariogeral').css('display', 'block')
+        }
+        $('.telefone').change(function(){
+            valor = $(this).val()
+            if(valor.substring(0,0) != '('){
+                valor = '(' + valor
+            }
+            if(valor.substring(3,3) != ')'){
+                valor = valor.substring(0,3) + ') ' + valor.substring(3)
+            }
+            if(valor.substring(10,10) != '-'){
+                valor = valor.substring(0,10) + '-' + valor.substring(10)
+            }
+            $(this).val(valor)
+        })
+        function paraAcao(evt){
+            evt.preventDefault();
+        }
+
+        document.getElementById('formacaobotao').addEventListener('click', paraAcao, false)
+        document.getElementById('botaodaatribuicao1').addEventListener('click', paraAcao, false)
+        document.getElementById('experienciabotao').addEventListener('click', paraAcao, false)
+        document.getElementById('aperfeicoamentobotao').addEventListener('click', paraAcao, false)
+        document.getElementById('referenciabotao').addEventListener('click', paraAcao, false)
+        document.getElementById('botaodofeito1').addEventListener('click', paraAcao, false)
+        document.getElementById('botaoeducacao').addEventListener('click', paraAcao, false)
+        document.getElementById('qualificacaobotao').addEventListener('click', paraAcao, false)
+        document.getElementById('botaoremovereducacao').addEventListener('click', paraAcao, false)
+        document.getElementById('botaoremovedordofeito').addEventListener('click', paraAcao, false)
+        document.getElementById('removerqualificacaobotao').addEventListener('click', paraAcao, false)
+        document.getElementById('removerformacaobotao').addEventListener('click', paraAcao, false)
+        document.getElementById('botaoremovedordaatribuicao1').addEventListener('click', paraAcao, false)
+        document.getElementById('removerexperienciabotao').addEventListener('click', paraAcao, false)
+        document.getElementById('removeraperfeicoamentobotao').addEventListener('click', paraAcao, false)
+        document.getElementById('removerreferenciabotao').addEventListener('click', paraAcao, false)
+        
+
+        
+
+
+        
+        
+
+        
+        //document.getElementById('historicobotao').addEventListener('click', paraAcao, false)
+        $('#botaoremovereducacao').click(function(){
+            $('#educacaocontainer').children().last().remove()
+            $('#educacaocontainer').children().last().remove()
+            contadoreducacao--
+        })
+        $('#botaoremovedordofeito').click(function(){
+            $('#paraobotaofuncionardireito').children().last().children().last().remove()
+            contadorfeitos1--
+        })
+        $('#removerqualificacaobotao').click(function(){
+            $('#qualificacoesbox').children().first().children().last().children().last().remove()
+            contadorqualificacao--
+        })
+        $('#removerformacaobotao').click(function(){
+            $('#divdaformacao').children().last().remove()
+            $('#divdaformacao').children().last().remove()
+            $('#divdoingresso').children().last().remove()
+            $('#divdoingresso').children().last().remove()
+
+            contador--
+        })
+        $('#botaoremovedordaatribuicao1').click(function(){
+            $('#atribuicoes').children().last().remove()
+        })
+        $('#removerexperienciabotao').click(function(){
+            $('#experienciabox').children().last().remove()
+            $('#experienciabox').children().last().remove()
+            $('#experienciabox').children().last().remove()
+            x--
+        })
+        $('#removeraperfeicoamentobotao').click(function(){
+            $('#aperfeicoamentocontainer').children().last().remove()
+            $('#aperfeicoamentocontainer').children().last().remove()
+            $('#aperfeicoamentocontainer').children().last().remove()
+            $('#aperfeicoamentocontainer').children().last().remove()
+            contadorteste--
+        })
+        $('#removerreferenciabotao').click(function(){
+            $('#referenciascontainer').children().last().remove()
+            $('#referenciascontainer').children().last().remove()
+            $('#referenciascontainer').children().last().remove()
+            contadorreferencia--
+        })
+        
+
+        
+
+        var divsaseremabertas = [
+            "haha","informacoes","formacaobox","experienciaboxexternamesmo","textareabox","aperfeicoamentobox",
+            "referenciasbox","historicobox","educacaobox","resumoprofissional","qualificacoesbox","imagemaserenviada"
+        ]
+        var contadoresdassetinhas = [
+            0,0,0,0,0,0,0,0,0,0,0,0
+        ]
+
+        function giradinha(indice){
+            $('#' + divsaseremabertas[indice]).slideToggle('slow')
+            if(contadoresdassetinhas[indice]%2===0){
+                $('#teste' + indice).removeClass('rodaprabaixo')
+                $('#teste' + indice).addClass('rodapracima')
+            }else{
+                $('#teste' + indice).removeClass('rodapracima')
+                $('#teste' + indice).addClass('rodaprabaixo')
+            }
+            contadoresdassetinhas[indice]++
+        }
+        var contador = 0;
+        $('#formacaobotao').click(function(){
+
+            if (contador<3) {
+                $('#divexterna').append("<div class='pure-u-1-2 pure-u-md-1-3' id='divdaformacao'> </div>", "<div class='pure-u-1-3 pure-u-md-1-3' id='divdoingresso'></div>" );
+                $('#divdaformacao').append("<label for='formacao'>Formação</label>", "<input id='formacao' class='pure-u-24-24' type='text' name='formacaoacademica[]'>") 
+                $('#divdoingresso').append("<label for='anodeformacao'>Ano de formação</label>", "<input id='anodeformacao' class='pure-u-24-24' type='text' name='anodeformacao[]'>")
+                contador++
+            }else{
+                alert('Número máximo de formações atingido')
+            }
+            $('#divexterna').children().last().children().last().blur(function(){
+            giradinha(3)
+            })
+        })
+        $('#teste1').click(function(){
+            giradinha(1)
+        });
+        $('#teste2').click(function(){
+            giradinha(2)
+        });
+        $('#teste3').click(function(){
+            giradinha(3)
+        });
+        $('#teste4').click(function(){
+            giradinha(4)
+        });
+        $('#teste5').click(function(){
+            giradinha(5)
+        });
+        $('#teste6').click(function(){
+            giradinha(6)
+        });
+        $('#teste7').click(function(){
+            giradinha(7)
+        });
+        $('#teste8').click(function(){
+            giradinha(8)
+        });
+        $('#teste9').click(function(){
+            giradinha(9)
+        });
+        $('#teste10').click(function(){
+            giradinha(10)
+        });
+        $('#teste11').click(function(){
+            giradinha(11)
+        });
+
+
+        var x = 3;
+        var divdereferencia = '';
+        $('#experienciabotao').click(function(){
+            if (x===2){
+                x=3;
+            }
+             if(x === 3){
+                $('#experienciabox').append("<div id='containerexperiencia2' class='blocodeacoes pure-g'> </div>")
+                divdereferencia = $('#containerexperiencia2');
+                divdereferencia.append("<div class='pure-u-1-3 pure-u-md-1-3' id='onomedoestabelecimento2'> </div>",
+                "<div class='pure-u-1-8 pure-u-md-1-3' id='oanodeingresso2'> </div>",
+                "<div class='pure-u-1-8 pure-u-md-1-3' id='oanodesaida2'> </div>",
+                "<div class='pure-u-1-3 pure-u-md-1-3' id='ocargo2'> </div>",
+                "<div class='pure-u-1-3 pure-u-md-1-3' id='asprincipaisatribuicoes2'> </div>")
+                $('#onomedoestabelecimento2').append("<label for='nomedoestabelecimento'>Nome do estabelecimento</label>", "<input id='nomedoestabelecimento2' class='pure-u-24-24 inputtemplate1' type='text' name='nomedoestabelecimento[]'>")
+                $('#oanodeingresso2').append("<label for='anodeingresso'>Ano de ingresso</label>","<input id='anodeingresso2' class='pure-u-24-24 inputtemplate1' type='text' name='anodeingresso[]'>" )
+                $('#oanodesaida2').append("<label for='anodesaida'>Ano de saida</label>","<input id='anodesaida2' class='pure-u-24-24 inputtemplate1' type='text' name='anodesaida[]'>" )
+                $('#ocargo2').append("<label for='cargo'>Cargo</label>", "<input id='cargo2' class='pure-u-24-24 inputtemplate1' type='text' name='cargo[]'>")
+                $('#asprincipaisatribuicoes2').append("<label for='principaisatribuicoes'>Principais atribuições</label>", "<input id='principaisatribuicoes5' class='pure-u-24-24 inputtemplate1' type='text' name='principaisatribuicoes2[]'>")
+                $('#experienciabox').append("<button id='botaodaatribuicao2' class='botaodaatribuicao pure-button''>Adicionar outra atribuição</button>")
+                $('#experienciabox').append("<button id='botaoremovedordaatribuicao2' class='botaodaatribuicao pure-button'>Remover atribuição</button>")
+
+                document.getElementById('botaodaatribuicao2').addEventListener('click', paraAcao, false)
+                document.getElementById('botaoremovedordaatribuicao2').addEventListener('click', paraAcao, false)
+                $('#botaoremovedordaatribuicao2').click(function(){
+                    $('#asprincipaisatribuicoes2').children().last().remove()
+                })
+                x++
+                }
+             else if(x === 4){
+                $('#experienciabox').append("<div id='containerexperiencia3' class='blocodeacoes pure-g'> </div>")
+                divdereferencia = $('#containerexperiencia3');
+                divdereferencia.append("<div class='pure-u-1-3 pure-u-md-1-3' id='onomedoestabelecimento3'> </div>",
+                "<div class='pure-u-1-8 pure-u-md-1-3' id='oanodeingresso3'> </div>",
+                "<div class='pure-u-1-8 pure-u-md-1-3' id='oanodesaida3'> </div>",
+                "<div class='pure-u-1-3 pure-u-md-1-3' id='ocargo3'> </div>",
+                "<div class='pure-u-1-3 pure-u-md-1-3' id='asprincipaisatribuicoes3'> </div>")
+                $('#onomedoestabelecimento3').append("<label for='nomedoestabelecimento'>Nome do estabelecimento</label>", "<input id='nomedoestabelecimento7' class='pure-u-24-24 inputtemplate1' type='text' name='nomedoestabelecimento[]'>")
+                $('#oanodeingresso3').append("<label for='anodeingresso'>Ano de ingresso</label>","<input id='anodeingresso7' class='pure-u-24-24 inputtemplate1' type='text' name='anodeingresso[]'>" )
+                $('#oanodesaida3').append("<label for='anodesaida'>Ano de saida</label>","<input id='anodesaida7' class='pure-u-24-24 inputtemplate1' type='text' name='anodesaida[]'>" )
+                $('#ocargo3').append("<label for='cargo'>Cargo</label>", "<input id='cargo7' class='pure-u-24-24 inputtemplate1' type='text' name='cargo[]'>")
+                $('#asprincipaisatribuicoes3').append("<label for='principaisatribuicoes7'>Principais atribuições</label>", "<input id='principaisatribuicoes3' class='pure-u-24-24 inputtemplate1' type='text' name='principaisatribuicoes3[]'>")
+                $('#experienciabox').append("<button id='botaodaatribuicao3' class='botaodaatribuicao pure-button'>Adicionar outra atribuição</button>")
+                $('#experienciabox').append("<button id='botaoremovedordaatribuicao3' class='botaodaatribuicao pure-button'>Remover atribuição</button>")
+                document.getElementById('botaodaatribuicao3').addEventListener('click', paraAcao, false)
+                document.getElementById('botaoremovedordaatribuicao3').addEventListener('click', paraAcao, false)
+                $('#botaoremovedordaatribuicao3').click(function(){
+                    $('#asprincipaisatribuicoes3').children().last().remove()
+                })
+                x++
+                 }else{
+                     alert('Número máximo atingido!')
+             }
+            $('#botaodaatribuicao2').click(function(){
+                $('#asprincipaisatribuicoes2').append("<input id='principaisatribuicoes10' class='pure-u-24-24' type='text' name='principaisatribuicoes2[]'>")
+            })
+            $('#botaodaatribuicao3').click(function(){
+                $('#asprincipaisatribuicoes3').append("<input id='principaisatribuicoes11' class='pure-u-24-24' type='text' name='principaisatribuicoes3[]'>")
+            })
+            
+            
+        })
+        $('#botaodaatribuicao1').click(function(){
+            //$(this).siblings().append("<div class='pure-u-1-3 pure-u-md-1-31' id='aiaimano'></div>")
+            $('#atribuicoes').append("<input id='principaisatribuicoes12' class='pure-u-24-24' type='text' name='principaisatribuicoes1[]'>")
+        })
+        var contadorteste = 0;
+        $('#aperfeicoamentobotao').click(function(){
+            if(contadorteste === -1) {
+            contadorteste = 0
+            }
+            if(contadorteste === 0){
+            $('#aperfeicoamentocontainer').append("<div class='pure-u-1 pure-u-md-1-3' id='nomedoaperfeicoamento1'></div>",
+            "<div class='pure-u-1-3 pure-u-md-1-3' id='localqueocarafalou1'></div>",
+            "<div class='pure-u-1-5 pure-u-md-1-3' id='anodeingresso1'></div>",
+            "<div class='pure-u-1-5 pure-u-md-1-3' id='anodesaida1'></div>"
+            )
+            $('#nomedoaperfeicoamento1').append(
+                "<label for='nomedoestabelecimento'>Nome do estabelecimento</label>",
+                "<input id='nomedoestabelecimento15' class='pure-u-24-24 inputtemplate1' type='text' name='nomedocurso[]'>")
+            $('#localqueocarafalou1').append(
+                "<label for='localdocurso'>Local</label>",
+                "<input id='localdocurso15' class='pure-u-24-24 inputtemplate1' type='text' name='localondeaprendeu[]'>"
+            )
+            $('#anodeingresso1').append(
+                "<label for='quandoentrou'>Ano de ingresso</label>",
+                "<input id='quandoentrou15' class='pure-u-24-24 inputtemplate1' type='text' name='quandoentrou[]'>"
+            )
+            $('#anodesaida1').append(
+                "<label for='quandosaiu'>Ano de saida</label>",
+                "<input id='quandosaiu15' class='pure-u-24-24 inputtemplate1' type='text' name='quandosaiu[]'>"
+            )
+            contadorteste++
+            }
+            else if(contadorteste === 1){
+                $('#aperfeicoamentocontainer').append("<div class='pure-u-1 pure-u-md-1-3' id='nomedoaperfeicoamento2'></div>",
+            "<div class='pure-u-1-3 pure-u-md-1-3' id='localqueocarafalou2'></div>",
+            "<div class='pure-u-1-5 pure-u-md-1-3' id='anodesaida2'></div>",
+            "<div class='pure-u-1-5 pure-u-md-1-3' id='anodeingresso2'></div>"
+            )
+            $('#nomedoaperfeicoamento2').append(
+                "<label for='nomedoestabelecimento'>Nome do estabelecimento</label>",
+                "<input id='nomedoestabelecimento16' class='pure-u-24-24 inputtemplate1' type='text' name='nomedocurso[]'>")
+            $('#localqueocarafalou2').append(
+                "<label for='localdocurso'>Local</label>",
+                "<input id='localdocurso16' class='pure-u-24-24 inputtemplate1' type='text' name='localondeaprendeu[]'>"
+            )
+            $('#anodeingresso2').append(
+                "<label for='quandoentrou'>Ano de ingresso</label>",
+                "<input id='quandoentrou16' class='pure-u-24-24 inputtemplate1' type='text' name='quandoentrou[]'>"
+            )
+            $('#anodesaida2').append(
+                "<label for='quandosaiu'>Ano de saída</label>",
+                "<input id='quandosaiu16' class='pure-u-24-24 inputtemplate1' type='text' name='quandosaiu[]'>"
+            )
+            contadorteste++
+            }else{
+                alert('Número máximo de aperfeiçoamentos atingido!')
+            }
+        })
+        var contadorreferencia = 0;
+        $('#referenciabotao').click(function(){
+            if (contadorreferencia === -1){
+                contadorreferencia = 0;
+            }
+            if(contadorreferencia === 0){
+            $('#referenciascontainer').append(
+                "<div class='pure-u-1-3 pure-u-md-1-3' id='nomedoreferente1'></div>",
+                "<div class='pure-u-1-5 pure-u-md-1-3' id='relacao1'></div>",
+                "<div class='pure-u-1-5 pure-u-md-1-3' id='telefone1'></div>"
+            )
+            $('#nomedoreferente1').append(
+                "<label for='nomedoreferente'>Nome</label>",
+                "<input id='nomedoreferente1' class='pure-u-24-24 inputtemplate1' type='text' name='nomedoreferente[]'>"
+            )
+            $('#relacao1').append(
+                "<label for='quemeoreferente'>Relacao</label>",
+                "<input id='quemeoreferente1' class='pure-u-24-24 inputtemplate1' type='text' name='quemeoreferente[]'>"
+            )
+            $('#telefone1').append(
+                "<label for='telefonedoreferente'>Telefone</label>",
+                "<input id='telefonedoreferente1' class='pure-u-24-24 inputtemplate1' type='text' name='telefonedoreferente[]'>"
+            )
+            contadorreferencia++
+            }else if(contadorreferencia === 1){
+                $('#referenciascontainer').append(
+                "<div class='pure-u-1-3 pure-u-md-1-3' id='nomedoreferente2'></div>",
+                "<div class='pure-u-1-5 pure-u-md-1-3' id='relacao2'></div>",
+                "<div class='pure-u-1-5 pure-u-md-1-3' id='telefone2'></div>"
+            )
+            $('#nomedoreferente2').append(
+                "<label for='nomedoreferente'>Nome</label>",
+                "<input id='nomedoreferente2' class='pure-u-24-24 inputtemplate1' type='text' name='nomedoreferente[]'>"
+            )
+            $('#relacao2').append(
+                "<label for='quemeoreferente'>Relacao</label>",
+                "<input id='quemeoreferente2' class='pure-u-24-24 inputtemplate1' type='text' name='quemeoreferente[]'>"
+            )
+            $('#telefone2').append(
+                "<label for='telefonedoreferente'>Telefone</label>",
+                "<input id='telefonedoreferente2' class='pure-u-24-24 telefone inputtemplate1' type='text' name='telefonedoreferente[]'>"
+            )
+            contadorreferencia++
+            }else{
+                alert('Número máximo de referências atingido!')
+            }
+        })
+        var contadorfeitos1 = 0;
+        $('#botaodofeito1').click(function(){
+            if (contadorfeitos1<5) {
+            $('#feitos1').append("<input id='principaisatribuicoesss' class='pure-u-24-24 inputtemplate2' type='text' name='feitosdapessoa[]'>")    
+            contadorfeitos1++
+            }else{
+                alert('Número máximo de feitos atingido!')
+            } 
+        })
+        var contadoreducacao = 0;
+        $('#botaoeducacao').click(function(){
+            if(contadoreducacao === 0){
+            $('#educacaocontainer').append("<div class='pure-u-1-2 pure-u-md-1-3' id='nomeeducacao1'></div>",
+            "<div class='pure-u-1-3 pure-u-md-1-2' id='localdaeducacao1'></div>")
+            $('#nomeeducacao1').append("<label for='anodeingresso'>Nome da formação</label>",
+            "<input id='anodeingresso1' class='pure-u-24-24 inputtemplate2' type='text' name='nomedaformacao[]'>")
+            $('#localdaeducacao1').append("<label for='anodeingresso'>Instituição</label>",
+            "<input id='instituicao1' class='pure-u-24-24 inputtemplate2' type='text' name='instituicaodaformacao[]'>")
+            contadoreducacao++
+        }else if(contadoreducacao === 1){
+            $('#educacaocontainer').append("<div class='pure-u-1-2 pure-u-md-1-3' id='nomeeducacao2'></div>",
+            "<div class='pure-u-1-3 pure-u-md-1-3' id='localdaeducacao2'></div>")
+            $('#nomeeducacao2').append("<label for='anodeingresso'>Nome da formação</label>",
+            "<input id='anodeingresso2' class='pure-u-24-24 inputtemplate2' type='text' name='nomedaformacao[]'>")
+            $('#localdaeducacao2').append("<label for='anodeingresso'>Instituição</label>",
+            "<input id='instituicao2' class='pure-u-24-24 inputtemplate2' type='text' name='instituicaodaformacao[]'>")
+            contadoreducacao++
+        }else if(contadoreducacao === 2){
+            $('#educacaocontainer').append("<div class='pure-u-1-2 pure-u-md-1-3' id='nomeeducacao3'></div>",
+            "<div class='pure-u-1-3 pure-u-md-1-3' id='localdaeducacao3'></div>")
+            $('#nomeeducacao3').append("<label for='anodeingresso'>Nome da formação</label>",
+            "<input id='anodeingresso3' class='pure-u-24-24 inputtemplate2' type='text' name='nomedaformacao[]'>")
+            $('#localdaeducacao3').append("<label for='anodeingresso'>Instituição</label>",
+            "<input id='instituicao3' class='pure-u-24-24 inputtemplate2' type='text' name='instituicaodaformacao[]'>")
+            contadoreducacao++
+        }else{
+            alert('Número máximo atingido!!')
+        }
+        })
+        var contadorqualificacao = 0;
+        $('#qualificacaobotao').click(function(){
+            if(contadorqualificacao<4){
+                $('#qualificacoescontainer').append("<input class='pure-u-24-24 inputtemplate2' id='qualificacaooo'type='text' name='qualificacoesprofissionais[]'>")   
+                contadorqualificacao++
+            }else{
+                alert('Número máximo atingido!')
+            }
+        })
+        $("#envio").click(function(e){
+        e.preventDefault();    
+        var erros = 0;  
+        $("#formulariogeral input").each(function(){
+            $(this).val() == "" ? erros++ : "";
+        });
+        if(erros > 0 ){         
+            alert("Existe(em) campo(os) vazio(os) neste fomulário")
+        }else{
+            //return true;	
+            $("#formulariogeral").submit()
+        }		
+                
+        });
+        
+    </script>
+</body>
+</html>
+
+
